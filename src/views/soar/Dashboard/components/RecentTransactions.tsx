@@ -48,26 +48,26 @@ const ActionAvatar = ({ actionType }: { actionType: number }) => {
     case 0:
       return (
         <Avatar
-          className='rounded-full bg-lightYellow text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-100'
-          icon={<BusinessFinanceIcon />}
+          className="rounded-full bg-lightYellow text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-100"
+          icon={<BusinessFinanceIcon aria-label="Business Finance Icon" />}
         />
       );
     case 1:
       return (
         <Avatar
-          className='rounded-full bg-lightBlue text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-100'
-          icon={<PaypalIcon />}
+          className="rounded-full bg-lightBlue text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-100"
+          icon={<PaypalIcon aria-label="Paypal Icon" />}
         />
       );
     case 2:
       return (
         <Avatar
-          className='rounded-full bg-lightGreen text-red-600 dark:bg-red-500/20 dark:text-red-100'
-          icon={<CurrencyIcon />}
+          className="rounded-full bg-lightGreen text-red-600 dark:bg-red-500/20 dark:text-red-100"
+          icon={<CurrencyIcon aria-label="Currency Icon" />}
         />
       );
     default:
-      return <Avatar />; // Default avatar for unknown action types
+      return <Avatar aria-label="Default Avatar" />;
   }
 };
 
@@ -76,9 +76,12 @@ const RecentTransactions = (props: RecenTransactionsProps) => {
   const { className } = props;
 
   return (
-    <div className={className}>
+    <div className={className} aria-labelledby="recent-transactions-title">
       {/* Component title */}
-      <h4 className='text-[16px] lg:text-[22px] font-semibold text-primary mb-0 md:mb-5'>
+      <h4
+        id="recent-transactions-title"
+        className="text-[16px] lg:text-[22px] font-semibold text-primary mb-0 md:mb-5"
+      >
         Recent Transactions
       </h4>
 
@@ -86,28 +89,39 @@ const RecentTransactions = (props: RecenTransactionsProps) => {
       <Card
         className={`border-0 flex flex-col justify-center bg-transparent md:bg-white h-auto lg:max-h-[240px] overflow-y-auto box-border ${className}`}
         style={{ scrollbarWidth: 'thin' }}
+        role="region"
+        aria-labelledby="recent-transactions-title"
       >
         {/* Iterate through the mock data to render transactions */}
-        {recentTrsansactionsData.map((timeline) => (
-          <>
+        {recentTrsansactionsData.map((timeline, timelineIndex) => (
+          <div key={timelineIndex} role="list">
             {timeline.data.map((activity, index) => (
               <div
                 key={index}
-                className='flex items-center justify-between my-4'
+                className="flex items-center justify-between my-4"
+                role="listitem"
               >
                 {/* Left section: Action avatar and details */}
-                <div className='text-[14px] flex items-center gap-[10px]'>
+                <div className="text-[14px] flex items-center gap-[10px]">
                   <ActionAvatar actionType={activity.actionType} />
                   <div>
-                    <h6 className='text-base font-medium'>{activity.action}</h6>
-                    <span className='text-[#718EBF]'>
-                      {activity?.transactionDate}
+                    <h6
+                      className="text-base font-medium"
+                      aria-label={`Transaction action: ${activity.action}`}
+                    >
+                      {activity.action}
+                    </h6>
+                    <span
+                      className="text-[#718EBF]"
+                      aria-label={`Transaction date: ${activity.transactionDate}`}
+                    >
+                      {activity.transactionDate}
                     </span>
                   </div>
                 </div>
 
                 {/* Right section: Transaction amount */}
-                <div className='text-right'>
+                <div className="text-right">
                   <p
                     className={classNames(
                       'font-semibold text-base',
@@ -115,6 +129,9 @@ const RecentTransactions = (props: RecenTransactionsProps) => {
                         ? 'text-red-600' // Negative transactions
                         : 'text-green-400 dark:text-gray-100' // Positive transactions
                     )}
+                    aria-label={`Transaction amount: ${
+                      activity.actionType === 0 ? '-' : '+'
+                    }${activity.curency}${activity.fiatValue}`}
                   >
                     {activity.actionType === 0 ? '-' : '+'}
                     {activity.curency}
@@ -123,7 +140,7 @@ const RecentTransactions = (props: RecenTransactionsProps) => {
                 </div>
               </div>
             ))}
-          </>
+          </div>
         ))}
       </Card>
     </div>

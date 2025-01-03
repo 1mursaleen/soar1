@@ -32,22 +32,19 @@ const usersData = [
     designation: 'CEO',
   },
 ];
+
 const QuickTransfer = ({ className }: QuickTransferProps) => {
   const [startIndex, setStartIndex] = useState(0); // State to track the starting index for the carousel
   const visibleCount = 3; // Number of users visible at a time
 
-  /**
-   * Move the carousel to the next set of users
-   */
+  // Move the carousel to the next set of users
   const handleNext = () => {
     if (startIndex + visibleCount < usersData.length) {
       setStartIndex((prevIndex) => prevIndex + visibleCount);
     }
   };
 
-  /**
-   * Move the carousel to the previous set of users
-   */
+  // Move the carousel to the previous set of users
   const handlePrevious = () => {
     if (startIndex > 0) {
       setStartIndex((prevIndex) => Math.max(prevIndex - visibleCount, 0));
@@ -59,23 +56,33 @@ const QuickTransfer = ({ className }: QuickTransferProps) => {
   const isRightArrowVisible = startIndex + visibleCount < usersData.length;
 
   return (
-    <div className={className}>
+    <div className={className} aria-labelledby="quick-transfer-title">
       {/* Component Title */}
-      <h4 className='text-[16px] lg:text-[22px] font-semibold text-primary mb-0 md:mb-5 mt-1 md:mt-4'>
+      <h4
+        id="quick-transfer-title"
+        className="text-[16px] lg:text-[22px] font-semibold text-primary mb-0 md:mb-5 mt-1 md:mt-4"
+      >
         Quick Transfer
       </h4>
 
       {/* Main Card Container */}
       <Card
         className={`border-0 bg-transparent md:bg-white ${className} rounded-3xl px-1 py-4`}
+        role="region"
+        aria-labelledby="quick-transfer-title"
       >
         {/* User Carousel */}
-        <div className='flex items-center gap-9 overflow-hidden relative'>
+        <div
+          className="flex items-center gap-9 overflow-hidden relative"
+          role="list"
+          aria-label="User carousel for quick transfers"
+        >
           {/* Left Arrow for navigation */}
           {isLeftArrowVisible && (
             <button
               onClick={handlePrevious}
-              className='absolute left-0 z-50 rotate-180'
+              className="absolute left-0 z-50 rotate-180"
+              aria-label="Previous users"
             >
               <RightArrowCircleIcon />
             </button>
@@ -83,28 +90,30 @@ const QuickTransfer = ({ className }: QuickTransferProps) => {
 
           {/* User List */}
           <div
-            className='flex transition-transform duration-300'
+            className="flex transition-transform duration-300"
             style={{ transform: `translateX(-${startIndex * 100}px)` }}
           >
             {usersData.map((user, index) => (
               <div
                 key={index}
-                className='flex flex-col items-center min-w-[100px]'
+                className="flex flex-col items-center min-w-[100px]"
+                role="listitem"
+                aria-label={`${user.name}, ${user.designation}`}
               >
-                <Avatar size={70} src={user.avatar} shape='circle' /> {/* User avatar */}
+                <Avatar size={70} src={user.avatar} shape="circle" alt={`${user.name}'s avatar`} />
                 <span
                   className={`text-base text-secondary capitalize mt-2 ${
                     index === 0 ? 'font-bold' : ''
                   }`}
                 >
-                  {user.name} {/* User name */}
+                  {user.name}
                 </span>
                 <span
                   className={`text-[15px] text-textGray capitalize ${
                     index === 0 ? 'font-bold' : ''
                   }`}
                 >
-                  {user.designation} {/* User designation */}
+                  {user.designation}
                 </span>
               </div>
             ))}
@@ -112,23 +121,28 @@ const QuickTransfer = ({ className }: QuickTransferProps) => {
 
           {/* Right Arrow for navigation */}
           {isRightArrowVisible && (
-            <button onClick={handleNext} className='absolute right-0 z-20'>
+            <button
+              onClick={handleNext}
+              className="absolute right-0 z-20"
+              aria-label="Next users"
+            >
               <RightArrowCircleIcon />
             </button>
           )}
         </div>
 
         {/* Amount Input and Send Button */}
-        <div className='flex justify-between items-center gap-3 mt-7'>
-          {/* Label for the input */}
-          <p className='text-xs lg:text-base text-left text-textGray'>
+        <div className="flex justify-between items-center gap-3 mt-7">
+          <label htmlFor="amount-input" className="text-xs lg:text-base text-left text-textGray">
             Write Amount
-          </p>
+          </label>
           <div className="flex items-center rounded-full bg-lightGray h-[40px] md:h-[50px]">
             <div className="write-amount max-w-[110px]">
               <Input
+                id="amount-input"
                 placeholder="525.50"
                 className="bg-lightGray quick_transfer_price_input"
+                aria-label="Enter transfer amount"
               />
             </div>
             <div>
@@ -137,6 +151,7 @@ const QuickTransfer = ({ className }: QuickTransferProps) => {
                 shape="circle"
                 variant="solid"
                 className="send_button bg-secondary hover:bg-secondary active:bg-secondary h-[40px] md:h-[50px]"
+                aria-label="Send amount"
               >
                 <div className="flex items-center gap-2">
                   Send
