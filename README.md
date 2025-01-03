@@ -58,7 +58,7 @@ This project is a responsive financial dashboard web application that showcases 
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/1mursaleen/soar.git
+   git clone https://github.com/1mursaleen/soar1.git
    cd soar
    ```
 
@@ -101,23 +101,15 @@ src/
 
 ---
 
-## Assumptions
-
-1. Mock API endpoints are used for user, card, transaction, and chart data.
-2. Accessibility standards (e.g., ARIA labels) are followed for UI components.
-3. Responsive design ensures compatibility with major browsers and devices.
-
----
-
 ## Demo
 
-- **Live Demo**: [Vercel Link](https://soar-b58c.vercel.app)
+- **Live Demo**: [Vercel Link](https://soar1.vercel.app)
 
 ---
 
 ## Submission Guidelines
 
-1. Provide a link to the Git repository with the source code.
+1. Provide a link to the Git repository with the source code.origin <https://github.com/1mursaleen/soar1> (fetch)
 2. Include a README file (this document) with setup instructions and any assumptions made during development.
 3. The application should be deployable locally with minimal setup steps.
 4. Provide a Vercel live demo link for the website.
