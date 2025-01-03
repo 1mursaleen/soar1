@@ -40,22 +40,31 @@ const WeeklyActivity = ({ className }: WeeklyActivityProps) => {
   };
 
   return (
-    <div className={className}>
+    <div className={className} aria-labelledby="weekly-activity-title">
       {/* Section title */}
-      <h4 className='text-[16px] lg:text-[22px] font-semibold text-primary mb-0 md:mb-5'>
+      <h4
+        id="weekly-activity-title"
+        className="text-[16px] lg:text-[22px] font-semibold text-primary mb-0 md:mb-5"
+      >
         Weekly Activity
       </h4>
 
       {/* Card component for the chart */}
-      <Card className='border-0 bg-transparent md:bg-white'>
+      <Card
+        className="border-0 bg-transparent md:bg-white"
+        role="region"
+        aria-labelledby="weekly-activity-title"
+      >
         {/* Toggle buttons for Deposit and Withdraw series */}
-        <div className='w-full flex items-center justify-end gap-5'>
+        <div className="w-full flex items-center justify-end gap-5">
           {/* Deposit toggle */}
-          <div
+          <button
             className={`flex items-center gap-2 font-inter font-normal md:text-base text-sm cursor-pointer ${
               visibleSeries.Deposit ? 'text-[#718EBF]' : 'text-gray-400'
             }`}
             onClick={() => handleToggleSeries('Deposit')}
+            aria-pressed={visibleSeries.Deposit}
+            aria-label={`Toggle visibility for Deposit data`}
           >
             <span
               className={`md:h-4 md:w-4 h-3 w-3 rounded-full ${
@@ -63,13 +72,15 @@ const WeeklyActivity = ({ className }: WeeklyActivityProps) => {
               }`}
             ></span>
             Deposit
-          </div>
+          </button>
           {/* Withdraw toggle */}
-          <div
+          <button
             className={`flex items-center gap-2 font-inter font-normal md:text-base text-sm cursor-pointer ${
               visibleSeries.Withdraw ? 'text-[#718EBF]' : 'text-gray-400'
             }`}
             onClick={() => handleToggleSeries('Withdraw')}
+            aria-pressed={visibleSeries.Withdraw}
+            aria-label={`Toggle visibility for Withdraw data`}
           >
             <span
               className={`md:h-4 md:w-4 h-3 w-3 rounded-full ${
@@ -77,7 +88,7 @@ const WeeklyActivity = ({ className }: WeeklyActivityProps) => {
               }`}
             ></span>
             Withdraw
-          </div>
+          </button>
         </div>
 
         {/* Chart component */}
@@ -85,8 +96,9 @@ const WeeklyActivity = ({ className }: WeeklyActivityProps) => {
           series={WeeklyActivityData?.filter(
             (series) => visibleSeries[series.name]
           )} // Filter visible series
-          height='240px'
-          type='bar'
+          height="240px"
+          type="bar"
+          aria-label="Bar chart showing weekly deposit and withdrawal activity"
           customOptions={{
             plotOptions: {
               bar: {

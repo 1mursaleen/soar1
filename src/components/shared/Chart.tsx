@@ -109,7 +109,9 @@ const Chart = (props: ChartProps) => {
     <div
       ref={chartRef}
       style={direction === DIR_RTL ? { direction: 'ltr' } : {}}
-      className='chartRef'
+      className="chartRef"
+      role="img"
+      aria-label="Interactive chart displaying data visualization"
     >
       <ApexChart
         options={options}
@@ -122,6 +124,7 @@ const Chart = (props: ChartProps) => {
       />
     </div>
   );
+  
 };
 
 export default Chart;

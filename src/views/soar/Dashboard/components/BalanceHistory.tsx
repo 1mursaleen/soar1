@@ -13,25 +13,31 @@ const data = {
 
 const BalanceHistory = ({ className }: { className: string }) => {
   return (
-    <div className={className}>
+    <div className={className} aria-labelledby="balance-history-title">
       {/* Title for the balance history section */}
-      <h4 className='text-[16px] lg:text-[22px] font-semibold text-primary mb-0 md:mb-5 mt-4'>
+      <h4
+        id="balance-history-title"
+        className="text-[16px] lg:text-[22px] font-semibold text-primary mb-0 md:mb-5 mt-4"
+      >
         Balance History
       </h4>
 
       {/* Card container for the chart */}
       <Card
-        className={`border-0 bg-transparent md:bg-white ${className} rounded-3xl `}
+        className={`border-0 bg-transparent md:bg-white ${className} rounded-3xl`}
+        role="region"
+        aria-labelledby="balance-history-title"
       >
         {/* Chart component to display the balance history */}
         <Chart
           series={data.series} // Data points for the chart
           xAxis={data.categories} // Categories for the X-axis (time periods)
-          height='220px' // Height of the chart
-          type='area' // Chart type (area chart)
+          height="220px" // Height of the chart
+          type="area" // Chart type (area chart)
           customOptions={{
             legend: { show: false }, // Hide the legend for simplicity
           }}
+          aria-label="Balance history area chart showing values for July through January."
         />
       </Card>
     </div>
